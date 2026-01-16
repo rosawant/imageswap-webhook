@@ -1,9 +1,9 @@
 name: Docker CI/CD validation
 
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - dev-roshan
   workflow_dispatch:
 
  
