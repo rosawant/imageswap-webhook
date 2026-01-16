@@ -1,0 +1,12 @@
+name: "Docker CI/CD validation"
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+    paths: infrastructures/**/*
+
+
+
+    
