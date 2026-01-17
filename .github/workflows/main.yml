@@ -36,7 +36,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./app/imageswap
-          push: false
+          push: true
           tags:  rosawant/base:imageswap-webhook-${{ env.DOCKER_TAG_LATEST }}
           file: ./app/imageswap/Dockerfile
 
