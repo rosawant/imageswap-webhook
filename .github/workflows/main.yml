@@ -24,12 +24,15 @@ jobs:
         with:
           name: imageswap-webhook-3
           path: app/imageswap/Dockerfile
+    environment:
+      name: ${{ github.ref_name }}
 
-  push:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: imageswap-webhook-3
+  # push:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Download artifacts
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: imageswap-webhook-3
+      
