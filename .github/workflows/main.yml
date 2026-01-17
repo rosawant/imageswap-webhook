@@ -34,4 +34,5 @@ jobs:
           context: .
           push: false
           tags:  rosawant/base:imageswap-webhook-${{ env.DOCKER_TAG_LATEST }}
+          file: ./app/imageswap/Dockerfile
 
