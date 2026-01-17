@@ -11,7 +11,7 @@ on:
 
 env:
   DOCKER_BUILDKIT: 1
-  DOCKER_TAG_LATEST: v1.0.0
+  DOCKER_TAG_LATEST: ${{ github.job }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,17 +32,29 @@ jobs:
         with:
           python-version: '3.8'
 
-      - name: Build docker image latest tag
-        uses: docker/build-push-action@v4
-        with:
-          context: ./app/imageswap
-          push: false
-          tags:  rosawant/base:imageswap-webhook-${{ env.DOCKER_TAG_LATEST }}
-          file: ./app/imageswap/Dockerfile
+      # - name: Build docker image latest tag
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: ./app/imageswap
+      #     push: false
+      #     tags:  rosawant/base:imageswap-webhook-${{ env.DOCKER_TAG_LATEST }}
+      #     file: ./app/imageswap/Dockerfile
       
-      - name: Push docker image latest tag
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-          tags:  rosawant/base:imageswap-webhook-${{ env.DOCKER_TAG_LATEST }}
+      - name: print docker image details
+        run: |
+          echo ${{ env.DOCKER_TAG_LATEST }}
+          echo ${{ github.repository }}
+          echo ${{ github.ref }}
+          echo ${{ github.sha }}
+          echo ${{ github.event_name }}
+          echo ${{ github.workflow }}
+          echo ${{ github.actor }}
+          echo ${{ github.run_id }}
+          echo ${{ github.run_number }}
+          echo ${{ github.job }}
+          echo ${{ github.head_ref }}
+          echo ${{ github.base_ref }}
+          echo ${{ github.event.action }}
+          echo ${{ github.event.pull_request.number }}
+          echo $GITHUB_JOB
 
