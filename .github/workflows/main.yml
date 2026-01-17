@@ -1,0 +1,40 @@
+name: Docker CI/CD validation
+
+on:
+  push:
+    branches:
+      - dev-roshan
+  pull_request:
+    branches:
+      - dev-roshan
+  workflow_dispatch:
+
+env:
+  DOCKER_BUILDKIT: 1
+  DOCKER_TAG_LATEST: ${{ github.run_id }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: imageswap-webhook-3
+          path: app/imageswap/Dockerfile
+      - name: Set output docker_tag
+        id: set_output
+        run: echo "DOCKER_TAG_LATEST=$DOCKER_TAG_LATEST" >> $GITHUB_OUTPUT 
+    outputs:
+      docker_tag: ${{ steps.set_output.outputs.DOCKER_TAG_LATEST }}
+    environment:
+      name: ${{ github.ref_name }}
+
+  calling_workflow:
+    needs: build
+    uses: ./.github/workflows/callined-worflow.yaml
+    with:
+      docker_tag: ${{ needs.build.outputs.docker_tag }}
+      
