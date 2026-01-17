@@ -24,6 +24,11 @@ jobs:
         with:
           name: imageswap-webhook-3
           path: app/imageswap/Dockerfile
+      - name: Set output docker_tag
+        id: set_output
+        run: echo DOCKER_TAG_LATEST=$DOCKER_TAG_LATEST >> $GITHUB_OUTPUT 
+    outputs:
+      docker_tag: ${{ steps.set_output.outputs.DOCKER_TAG_LATEST }}
     environment:
       name: ${{ github.ref_name }}
 
@@ -31,5 +36,5 @@ jobs:
     needs: build
     uses: ./.github/workflows/callined-worflow.yaml
     with:
-      docker_tag: ${{ needs.build.outputs.DOCKER_TAG_LATEST }}
+      docker_tag: ${{ needs.build.outputs.docker_tag }}
       
