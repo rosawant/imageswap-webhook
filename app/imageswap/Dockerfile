@@ -8,7 +8,7 @@ WORKDIR /app
 
 RUN apk add --update --no-cache bind-tools ca-certificates
 
-RUN pip install pipenv
+RUN pip install pipenv && pipenv lock --clear
 
 RUN pipenv install --system --deploy
 
