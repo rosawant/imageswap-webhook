@@ -27,12 +27,9 @@ jobs:
     environment:
       name: ${{ github.ref_name }}
 
-  # push:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download artifacts
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: imageswap-webhook-3
+  calling_workflow:
+    needs: build
+    uses: ./.github/workflows/callined-worflow.yaml
+    with:
+      docker_tag: ${{ needs.build.outputs.DOCKER_TAG_LATEST }}
       

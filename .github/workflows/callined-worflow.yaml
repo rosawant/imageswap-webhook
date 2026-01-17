@@ -1,0 +1,13 @@
+on:
+    workflow_call:
+        inputs:
+            docker_tag:
+                required: true
+                type: string
+
+jobs:
+    echo_tag:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Echo Docker Tag
+              run: echo "Docker Tag is ${{ inputs.docker_tag }}"
