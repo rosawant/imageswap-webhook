@@ -11,7 +11,7 @@ on:
 
 env:
   DOCKER_BUILDKIT: 1
-  DOCKER_TAG_LATEST: ${{ github.job }}
+  DOCKER_TAG_LATEST: ${{ github.run_id }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
           path: app/imageswap/Dockerfile
       - name: Set output docker_tag
         id: set_output
-        run: echo DOCKER_TAG_LATEST=$DOCKER_TAG_LATEST >> $GITHUB_OUTPUT 
+        run: echo "DOCKER_TAG_LATEST=$DOCKER_TAG_LATEST" >> $GITHUB_OUTPUT 
     outputs:
       docker_tag: ${{ steps.set_output.outputs.DOCKER_TAG_LATEST }}
     environment:
